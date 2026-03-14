@@ -1,5 +1,5 @@
 const express = require("express");
-const { productController } = require("../../controllers/pingController");
+const { productController } = require("../../controllers/ping_controller");
 
 const router = express.Router() ;
 

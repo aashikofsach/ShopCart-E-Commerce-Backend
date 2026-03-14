@@ -1,8 +1,8 @@
 const express = require("express");
 
 const router = express.Router();
-const { router: pingRoutes } = require("./v1/pingRoutes");
-const {router : pingRoutesV2} = require("./v2/pingRoutesV2")
+const { router: pingRoutes } = require("./v1/ping_routes");
+const {router : pingRoutesV2} = require("./v2/ping_routes_v2")
 const v1Routes = require("./v1/index");
 const v2Routes = require("./v2/index");
 
