@@ -20,8 +20,16 @@ cd ShopCart-E-Commerce-Backend
 npm i 
 
 ```
+4. setup the .env file at the root directory and add the PORT as :
 
-4. Run the Project 
+```
+PORT : YOUR_PORT_NUMBER
+
+```
+
+
+
+5. Run the Project 
 
 ```
 npm start 
