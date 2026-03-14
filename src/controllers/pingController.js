@@ -1,13 +1,9 @@
-
-
-function pingController(req, res)
-{
-    return res.json({
-        message : "PONG"
-    })
-
+function pingController(req, res) {
+  return res.json({
+    message: "PONG",
+  });
 }
 
-module.exports ={
-    pingController
-}
+module.exports = {
+  pingController,
+};
