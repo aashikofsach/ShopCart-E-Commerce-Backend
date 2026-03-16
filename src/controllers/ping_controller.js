@@ -4,21 +4,20 @@ function pingController(req, res) {
   });
 }
 
-function pingControllerV2(req, res)
-{
-    return res.json({
-        message : "PONG from v2 Router"
-    })
+function pingControllerV2(req, res) {
+  return res.json({
+    message: "PONG from v2 Router",
+  });
 }
 
-function productController(req, res)
-{
-    return res.json({
-        data : "productArray"
-    })
-}
+// function productController(req, res)
+// {
+//     return res.json({
+//         data : "productArray"
+//     })
+// }
 
 module.exports = {
   pingController,
-  pingControllerV2,productController
+  pingControllerV2,
 };
