@@ -9,11 +9,11 @@ function createProduct(req, res) {
       message: "Successful created the product ",
       data: {
         id: Math.random() * 20,
-        title: "",
-        description: "",
-        category: "",
-        price: 0,
-        image: "",
+        title: req.body.title,
+        description: req.body.description,
+        category: req.body.category,
+        price: req.body.price,
+        image: req.body.image,
       },
     });
   } catch (error) {
