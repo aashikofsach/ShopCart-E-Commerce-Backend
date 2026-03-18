@@ -1,54 +1,55 @@
 const { errorResponse } = require("../utils/error_response");
 const { badRequestError } = require("../errors/bad_request_error");
+const { StatusCodes, ReasonPhrases } = require("http-status-codes");
 
 function createProductvalidator(req, res, next) {
   console.log(req.body, "we are here");
   if (!req.body.title) {
     return res
-      .status(400)
+      .status(StatusCodes.BAD_REQUEST)
       .json(
         errorResponse(
-          "title is not present inside the req body",
+          ReasonPhrases.BAD_REQUEST,
           new badRequestError("title", 420),
         ),
       );
   }
   if (!req.body.description) {
     return res
-      .status(400)
+      .status(StatusCodes.BAD_REQUEST)
       .json(
         errorResponse(
-          "description is not present inside the req body",
+          ReasonPhrases.BAD_REQUEST,
           new badRequestError("description", 420),
         ),
       );
   }
   if (!req.body.category) {
     return res
-      .status(400)
+      .status(StatusCodes.BAD_REQUEST)
       .json(
         errorResponse(
-          "category is not present inside the req body",
+          ReasonPhrases.BAD_REQUEST,
           new badRequestError("category", 420),
         ),
       );
   }
   if (!req.body.price) {
     return res
-      .status(400)
+      .status(StatusCodes.BAD_REQUEST)
       .json(
         errorResponse(
-          "price is not present inside the req body",
+          ReasonPhrases.BAD_REQUEST,
           new badRequestError("price", 420),
         ),
       );
   }
   if (!req.body.image) {
     return res
-      .status(400)
+      .status(StatusCodes.BAD_REQUEST)
       .json(
         errorResponse(
-          "image is not present inside the req body",
+          ReasonPhrases.BAD_REQUEST,
           new badRequestError("image", 420),
         ),
       );
