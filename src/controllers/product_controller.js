@@ -23,15 +23,15 @@ function createProduct(req, res) {
   }
 }
 
-function getProducts(req, res) {
+async function getProducts(req, res) {
   try {
     // here we do db interaction
     // console.log(req.body)
 
-    const response = getProductsServices();
+    const response = await getProductsServices();
 
     return res.status(StatusCodes.OK).json({
-      sucess: true,
+      success: true,
       error: null,
       message: ReasonPhrases.OK,
       data: response,
