@@ -1,5 +1,5 @@
 const express = require("express");
-const { createProduct } = require("../../controllers/product_controller");
+const { createProduct , getProducts , getProduct} = require("../../controllers/product_controller");
 const { pingController } = require("../../controllers/ping_controller");
 const {
   createProductvalidator,
@@ -7,7 +7,9 @@ const {
 
 const router = express.Router();
 
-router.get("/", pingController);
+// router.get("/", pingController);
+router.get("/",getProducts)
+router.get("/:id", getProduct);
 router.post("/", createProductvalidator, createProduct);
 
 module.exports = { router };
