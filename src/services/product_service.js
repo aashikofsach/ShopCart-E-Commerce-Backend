@@ -1,39 +1,36 @@
-
-const FakeStoreRepository = require("../repositories/fake_store_repository")
-
-const respository = FakeStoreRepository ;
-
 const products = [];
 
-function createProductService(product) {
-  const newProduct = {
-    id: products.length,
-    ...product,
-  };
+class ProductService {
+  constructor(respository) {
+    this.respository = respository;
+  }
 
-  products.push(newProduct);
+  createProductService(product) {
+    const newProduct = {
+      id: products.length,
+      ...product,
+    };
 
-  return newProduct;
-}
+    products.push(newProduct);
 
-async function getProductsServices()
-{
-  const response = await respository.getProduct();
-  return response.data;
+    return newProduct;
+  }
 
-}
+  async getProductsServices() {
+    const response = await this.respository.getProduct();
+    return response.data;
+  }
 
-function getProductService(id)
-{
-    console.log(id, "line is 20 here ")
-    console.log(products.filter((product)=> product.id==id)[0], "line is 21 ")
+  getProductService(id) {
+    console.log(id, "line is 20 here ");
+    console.log(
+      products.filter((product) => product.id == id)[0],
+      "line is 21 ",
+    );
 
-    const requestedProduct = products.filter((product)=> product.id==id)[0];
+    const requestedProduct = products.filter((product) => product.id == id)[0];
     return requestedProduct;
+  }
 }
 
-module.exports ={
-    createProductService,
-    getProductsServices,
-    getProductService
-}
+module.exports = ProductService;

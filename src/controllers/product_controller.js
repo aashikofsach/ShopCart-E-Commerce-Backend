@@ -5,12 +5,19 @@ const {
   getProductService,
 } = require("../services/product_service");
 
+const ProductService = require ( "../services/product_service");
+const FakeStoreRepository = require("../repositories/fake_store_repository");
+
+const productService = new ProductService(new FakeStoreRepository());
+
+
+
 function createProduct(req, res) {
   try {
     // here we do db interaction
     console.log(req.body);
 
-    const response = createProductService(req.body);
+    const response = productService.createProductService(req.body);
 
     return res.status(StatusCodes.CREATED).json({
       sucess: true,
@@ -28,7 +35,7 @@ async function getProducts(req, res) {
     // here we do db interaction
     // console.log(req.body)
 
-    const response = await getProductsServices();
+    const response = await productService.getProductsServices();
 
     return res.status(StatusCodes.OK).json({
       success: true,
@@ -47,7 +54,7 @@ function getProduct(req, res) {
     // console.log(req.body)
     const id = req.params.id;
 
-    const response = getProductService(id);
+    const response = productService.getProductService(id);
 
     return res.status(StatusCodes.OK).json({
       sucess: true,
