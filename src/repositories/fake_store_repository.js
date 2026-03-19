@@ -16,13 +16,23 @@ class FakeStoreRepository {
   }
 
   async getProduct(id) {
-    const response = await axios.get("https://fakestoreapi.com/products/"+id);
+    const response = await axios.get("https://fakestoreapi.com/products/" + id);
     //   console.log(response);
 
+    return response.data;
+  }
+
+  async createProduct(product) {
+    const response = await axios.post(
+      "https://fakestoreapi.com/products",
+      product,
+    );
+    // Log the response for debugging
+    console.log("API Response:", response.data);
     return response.data;
   }
 }
 
 //  async getProduct()
 
-module.exports = FakeStoreRepository ;
+module.exports = FakeStoreRepository;

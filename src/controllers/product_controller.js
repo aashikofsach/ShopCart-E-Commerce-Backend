@@ -12,12 +12,12 @@ const productService = new ProductService(new FakeStoreRepository());
 
 
 
-function createProduct(req, res) {
+async function createProduct(req, res) {
   try {
     // here we do db interaction
     console.log(req.body);
 
-    const response = productService.createProductService(req.body);
+    const response = await productService.createProductService(req.body);
 
     return res.status(StatusCodes.CREATED).json({
       sucess: true,

@@ -5,15 +5,17 @@ class ProductService {
     this.respository = respository;
   }
 
-  createProductService(product) {
-    const newProduct = {
-      id: products.length,
-      ...product,
-    };
+  async createProductService(product) {
+    // const newProduct = {
+    //   id: products.length,
+    //   ...product,
+    // };
 
-    products.push(newProduct);
+    // products.push(newProduct);
 
-    return newProduct;
+    const response = await this.respository.createProduct(product);
+
+    return response;
   }
 
   async getProductsServices() {
