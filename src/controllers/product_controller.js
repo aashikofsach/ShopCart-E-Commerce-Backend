@@ -5,12 +5,10 @@ const {
   getProductService,
 } = require("../services/product_service");
 
-const ProductService = require ( "../services/product_service");
+const ProductService = require("../services/product_service");
 const FakeStoreRepository = require("../repositories/fake_store_repository");
 
 const productService = new ProductService(new FakeStoreRepository());
-
-
 
 async function createProduct(req, res) {
   try {
@@ -53,7 +51,7 @@ async function getProduct(req, res) {
     // here we do db interaction
     // console.log(req.body)
     const id = req.params.id;
-    console.log(id)
+    console.log(id);
 
     const response = await productService.getProductService(id);
 
