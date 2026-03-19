@@ -48,13 +48,14 @@ async function getProducts(req, res) {
   }
 }
 
-function getProduct(req, res) {
+async function getProduct(req, res) {
   try {
     // here we do db interaction
     // console.log(req.body)
     const id = req.params.id;
+    console.log(id)
 
-    const response = productService.getProductService(id);
+    const response = await productService.getProductService(id);
 
     return res.status(StatusCodes.OK).json({
       sucess: true,

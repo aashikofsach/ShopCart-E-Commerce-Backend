@@ -8,11 +8,18 @@ const axios = require("axios");
 // }
 
 class FakeStoreRepository {
-  async getProduct() {
+  async getProducts() {
     const response = await axios.get("https://fakestoreapi.com/products");
     //   console.log(response);
 
-    return response;
+    return response.data;
+  }
+
+  async getProduct(id) {
+    const response = await axios.get("https://fakestoreapi.com/products/"+id);
+    //   console.log(response);
+
+    return response.data;
   }
 }
 
