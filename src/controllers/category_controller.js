@@ -68,8 +68,29 @@ async function getCategory(req, res) {
   }
 }
 
+async function destroyCategory(req, res)
+{
+  try {
+      const id = req.params.id;
+    // console.log(id);
+
+    const response = await categoryService.destroyCategory(id);
+
+    return res.status(StatusCodes.OK).json({
+      sucess: true,
+      error: null,
+      message: ReasonPhrases.OK,
+      data: response,
+    });
+    
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   createCategory,
   getCategories,
   getCategory,
+  destroyCategory
 };

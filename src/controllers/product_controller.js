@@ -66,7 +66,9 @@ async function getProduct(req, res) {
   }
 }
 
+
 module.exports = {
+
   createProduct,
   getProducts,
   getProduct,

@@ -30,7 +30,24 @@ class CategoryRepository {
     console.log("API Response:", response);
     return response;
   }
+
+  async destroyCategory(categoryId)
+  {
+    try {
+        const response = await Category.destroy({
+            where :{
+                id : categoryId
+            }
+        })
+
+        return response ;
+        
+    } catch (error) {
+        console.log("There is something error as", error)
+    }
+  }
 }
+
 
 //  async getProduct()
 
