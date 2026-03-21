@@ -15,7 +15,7 @@ const categoryService = new CategoryService(new CategoryRepository());
 async function createCategory(req, res) {
   try {
     // here we do db interaction
-    console.log(req.body);
+    console.log(req.body, "thisbis line 18");
 
     const response = await categoryService.createCategory(req.body);
 

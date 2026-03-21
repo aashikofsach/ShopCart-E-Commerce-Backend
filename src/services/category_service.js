@@ -12,6 +12,7 @@ class CategoryService {
     // };
 
     // products.push(newProduct);
+    console.log(category, "line is 15", category.name , category.description);
 
     const response = await this.respository.createCategory(category.name , category.description);
 

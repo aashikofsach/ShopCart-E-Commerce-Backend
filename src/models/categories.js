@@ -5,7 +5,7 @@ const db = require("../config/db_config");
 const Category = db.define("category", {
   name: {
     type: Sequalize.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   description: {
     type: Sequalize.STRING,
