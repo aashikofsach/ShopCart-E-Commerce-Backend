@@ -27,7 +27,7 @@ app.use("/api", apiRoutes);
 app.listen(PORT, async() => {
   console.log(`server is running for shop cart app at ${PORT}`);
 
-  await db.sync() ;
+  await db.sync({alter : true}) ;
   console.log("db got connected successfully, yay !")
 
 //  const res = await Category.create({
