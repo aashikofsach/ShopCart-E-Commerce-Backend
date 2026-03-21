@@ -27,7 +27,7 @@ class CategoryRepository {
   async createCategory(name , description) {
     const response = await Category.create({name , description})
     // Log the response for debugging
-    console.log("API Response:", response.data);
+    console.log("API Response:", response);
     return response;
   }
 }

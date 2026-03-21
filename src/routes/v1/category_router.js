@@ -1,5 +1,5 @@
 const express = require("express");
-const { createCategory , getProducts , getProduct} = require("../../controllers/category_controller");
+const { createCategory , getCategories , getCategory} = require("../../controllers/category_controller");
 const { pingController } = require("../../controllers/ping_controller");
 const {
   createProductvalidator,
@@ -8,8 +8,8 @@ const {
 const categoryRouter = express.Router();
 
 // router.get("/", pingController);
-categoryRouter.get("/",getProducts)
-categoryRouter.get("/:id", getProduct);
+categoryRouter.get("/",getCategories)
+categoryRouter.get("/:id", getCategory);
 categoryRouter.post("/", createCategory);
 
 module.exports = { categoryRouter };

@@ -30,12 +30,12 @@ app.listen(PORT, async() => {
   await db.sync() ;
   console.log("db got connected successfully, yay !")
 
- const res = await Category.create({
-    name : "Aashish",
-    description : "SDE-2 @ Google"
-  })
+//  const res = await Category.create({
+//     name : "Aashish",
+//     description : "SDE-2 @ Google"
+//   })
 
-  console.log(res);
+//   console.log(res);
 
   // connection.connect((err)=>{
   //   if(err)

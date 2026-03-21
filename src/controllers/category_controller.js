@@ -30,12 +30,12 @@ async function createCategory(req, res) {
   }
 }
 
-async function getProducts(req, res) {
+async function getCategories(req, res) {
   try {
     // here we do db interaction
     // console.log(req.body)
 
-    const response = await productService.getProductsServices();
+    const response = await categoryService.getCategories();
 
     return res.status(StatusCodes.OK).json({
       success: true,
@@ -48,14 +48,14 @@ async function getProducts(req, res) {
   }
 }
 
-async function getProduct(req, res) {
+async function getCategory(req, res) {
   try {
     // here we do db interaction
     // console.log(req.body)
     const id = req.params.id;
     console.log(id);
 
-    const response = await productService.getProductService(id);
+    const response = await categoryService.getCategory(id);
 
     return res.status(StatusCodes.OK).json({
       sucess: true,
@@ -70,6 +70,6 @@ async function getProduct(req, res) {
 
 module.exports = {
   createCategory,
-  getProducts,
-  getProduct,
+  getCategories,
+  getCategory,
 };

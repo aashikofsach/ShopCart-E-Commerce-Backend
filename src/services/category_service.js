@@ -19,12 +19,12 @@ class CategoryService {
     return response;
   }
 
-  async getProductsServices() {
-    const response = await this.respository.getProducts();
+  async getCategories() {
+    const response = await this.respository.getCategories();
     return response;
   }
 
-  async getProductService(id) {
+  async getCategory(id) {
     // console.log(id, "line is 20 here ");
     // console.log(
     //   products.filter((product) => product.id == id)[0],
@@ -34,7 +34,7 @@ class CategoryService {
     // const requestedProduct = products.filter((product) => product.id == id)[0];
     // return requestedProduct;
 
-     const response = await this.respository.getProduct(id);
+     const response = await this.respository.getCategory(id);
     return response;
   }
 }
