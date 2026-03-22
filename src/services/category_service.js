@@ -1,48 +1,62 @@
 // const products = [];
 
+const { internalServerError } = require("../errors/internal_server_error");
+const { NotFoundError } = require("../errors/not_found_error");
+
 class CategoryService {
   constructor(respository) {
     this.respository = respository;
   }
 
   async createCategory(category) {
-    // const newProduct = {
-    //   id: products.length,
-    //   ...product,
-    // };
+    try {
+      console.log(category, "line is 15", category.name, category.description);
 
-    // products.push(newProduct);
-    console.log(category, "line is 15", category.name , category.description);
+      const response = await this.respository.createCategory(
+        category.name,
+        category.description,
+      );
 
-    const response = await this.respository.createCategory(category.name , category.description);
-
-    return response;
+      return response;
+    } catch (error) {
+      console.log("category service :", error);
+      throw new internalServerError();
+    }
   }
 
   async getCategories() {
-    const response = await this.respository.getCategories();
-    return response;
+    try {
+      const response = await this.respository.getCategories();
+      return response;
+    } catch (error) {
+      console.log("category service :", error);
+      throw new internalServerError();
+    }
   }
 
-  async getCategory(id) {
-    // console.log(id, "line is 20 here ");
-    // console.log(
-    //   products.filter((product) => product.id == id)[0],
-    //   "line is 21 ",
-    // );
-
-    // const requestedProduct = products.filter((product) => product.id == id)[0];
-    // return requestedProduct;
-
-     const response = await this.respository.getCategory(id);
-    return response;
-
+  async getCategory(categoryId) {
+    try {
+      const response = await this.respository.getCategory(categoryId);
+      if(!response)
+        throw new NotFoundError("Category", "id", categoryId);
+      return response;
+    } catch (error) {
+        if(error.name==="NotFoundError")
+            throw error;
+      console.log("category service :", error);
+      throw new internalServerError();
+    }
   }
 
-  async destroyCategory(id)
-  {
-    const response = await this.respository.destroyCategory(id);
-    return response;
+  async destroyCategory(id) {
+    try {
+      const response = await this.respository.destroyCategory(id);
+      return response;
+    } catch (error) {
+      console.log("category service :", error);
+
+      throw new internalServerError();
+    }
   }
 }
 

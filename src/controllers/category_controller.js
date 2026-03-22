@@ -9,6 +9,7 @@ const {
 const CategoryService = require("../services/category_service");
 // const FakeStoreRepository = require("../repositories/fake_store_repository");
 const CategoryRepository = require("../repositories/category_repository");
+const { errorResponse } = require("../utils/error_response");
 
 const categoryService = new CategoryService(new CategoryRepository());
 
@@ -26,7 +27,10 @@ async function createCategory(req, res) {
       data: response,
     });
   } catch (error) {
-    console.log("Something went wrong", error);
+    console.log("Something went wrong category controller", error);
+  return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
@@ -44,7 +48,10 @@ async function getCategories(req, res) {
       data: response,
     });
   } catch (error) {
-    console.log("Something went wrong", error);
+    console.log("Something went wrong category controller", error);
+    return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
@@ -64,14 +71,16 @@ async function getCategory(req, res) {
       data: response,
     });
   } catch (error) {
-    console.log("Something went wrong", error);
+    console.log("Something went wrong category controller", error);
+    return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
-async function destroyCategory(req, res)
-{
+async function destroyCategory(req, res) {
   try {
-      const id = req.params.id;
+    const id = req.params.id;
     // console.log(id);
 
     const response = await categoryService.destroyCategory(id);
@@ -82,9 +91,11 @@ async function destroyCategory(req, res)
       message: ReasonPhrases.OK,
       data: response,
     });
-    
   } catch (error) {
-    
+    console.log("Something went wrong category controller", error);
+     return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
@@ -92,5 +103,5 @@ module.exports = {
   createCategory,
   getCategories,
   getCategory,
-  destroyCategory
+  destroyCategory,
 };

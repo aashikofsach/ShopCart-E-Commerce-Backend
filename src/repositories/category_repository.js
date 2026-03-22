@@ -11,24 +11,45 @@ const Category = require("../models/categories");
 
 class CategoryRepository {
   async getCategories() {
-    const response = await Category.findAll();
+  try {
+      const response = await Category.findAll();
     //   console.log(response);
 
     return response;
+    
+  } catch (error) {
+    console.log(error, "categoryRepository error")
+    throw error;
+    
+  }
   }
 
   async getCategory(id) {
-    const response = await Category.findByPk(id)
-    //   console.log(response);
+   try {
+     const response = await Category.findByPk(id)
+      console.log(response, "what we get ");
+    
 
     return response;
+   } catch (error) {
+    console.log(error, "categoryRepository error");
+    throw error;
+    
+   }
   }
 
   async createCategory(name , description) {
-    const response = await Category.create({name , description})
+   try {
+     const response = await Category.create({name , description})
     // Log the response for debugging
     console.log("API Response:", response);
     return response;
+    
+   } catch (error) {
+    console.log(error, "categoryRepository error");
+    throw error;
+    
+   }
   }
 
   async destroyCategory(categoryId)
@@ -44,6 +65,7 @@ class CategoryRepository {
         
     } catch (error) {
         console.log("There is something error as", error)
+        throw error ;
     }
   }
 }

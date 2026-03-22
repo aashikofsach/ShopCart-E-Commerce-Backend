@@ -5,12 +5,13 @@ const {
   createProductvalidator,
 } = require("./../../middlewares/product_middleware");
 
+const {createCategoryValidator} = require("../../middlewares/category_middleware");
 const categoryRouter = express.Router();
 
 // router.get("/", pingController);
 categoryRouter.get("/",getCategories)
 categoryRouter.get("/:id", getCategory);
-categoryRouter.post("/", createCategory);
+categoryRouter.post("/", createCategoryValidator, createCategory);
 categoryRouter.delete("/:id",destroyCategory)
 
-module.exports = { categoryRouter };
+module.exports = { categoryRouter }; 
