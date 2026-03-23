@@ -5,7 +5,9 @@ const mysql = require("mysql2");
 
 const { PORT } = require("./config/server_config");
 const db = require("./config/db_config");
-const Category = require("./models/categories");
+// const Category = require("./models/categories");
+// const Product = require("./models/products")
+const {Product , Category} =require("./models/assosiations")
 const { router: apiRoutes } = require("./routes/api_routes");
 const app = express();
 
