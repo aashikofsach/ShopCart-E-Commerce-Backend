@@ -5,6 +5,7 @@ const { DB_DATABASE, DB_USER, DB_PASS, DB_HOST } = require("./server_config");
 const sequelize = new Sequelize(DB_DATABASE, DB_USER, DB_PASS, {
   host: DB_HOST,
   dialect: "mysql",
+  logging : console.log
 });
 
 module.exports = sequelize;

@@ -4,7 +4,7 @@ const responseTime = require("response-time");
 const mysql = require("mysql2");
 
 const { PORT } = require("./config/server_config");
-const db = require ( "./config/db_config");
+const db = require("./config/db_config");
 const Category = require("./models/categories");
 const { router: apiRoutes } = require("./routes/api_routes");
 const app = express();
@@ -24,18 +24,24 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api", apiRoutes);
 
-app.listen(PORT, async() => {
+app.listen(PORT, async () => {
   console.log(`server is running for shop cart app at ${PORT}`);
 
-  await db.sync() ;
-  console.log("db got connected successfully, yay !")
+  try {
+    console.log("inside try catch for db.sync")
+    await db.sync();
+  } catch (error) {
+    console.log("There is some error in db sync", error);
+  }
 
-//  const res = await Category.create({
-//     name : "Aashish",
-//     description : "SDE-2 @ Google"
-//   })
+  console.log("db got connected successfully, yay !");
 
-//   console.log(res);
+  //  const res = await Category.create({
+  //     name : "Aashish",
+  //     description : "SDE-2 @ Google"
+  //   })
+
+  //   console.log(res);
 
   // connection.connect((err)=>{
   //   if(err)
