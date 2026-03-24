@@ -61,4 +61,22 @@ app.listen(PORT, async () => {
   //     console.log("Data from the table is ",result, "type of the results is ", typeof(result))
   //   })
   // })
+
+  try {
+
+  const res = await Product.create({
+    title : "ritik",
+    description : "One of the best software developer of world",
+    price : 9999,
+    image : "Every girl dream of him",
+    categoryId : 57,
+  })
+
+  console.log("response from product :", res);
+    
+  } catch (error) {
+
+    console.log("Error in adding data in product table", error)
+    
+  }
 });
