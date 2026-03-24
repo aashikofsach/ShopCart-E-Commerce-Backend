@@ -32,6 +32,8 @@ app.listen(PORT, async () => {
   try {
     console.log("inside try catch for db.sync")
     await db.sync();
+
+    console.log("here we get the how many models our db have :", db.models)
   } catch (error) {
     console.log("There is some error in db sync", error);
   }
