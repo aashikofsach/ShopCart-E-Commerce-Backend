@@ -40,6 +40,19 @@ app.listen(PORT, async () => {
 
   console.log("db got connected successfully, yay !");
 
+  // const res = await Product.create({
+  //   id : 103,
+  //   title :"Blue saari",
+  //   description : "Banarsi saare foe beautiful girls ",
+  //   price : 500,
+  //   image : "some random image 3",
+  //   categoryId : 1
+
+   
+  // })
+  // console.log(res, " here is the query run for product entry ")
+
+
   //  const res = await Category.create({
   //     name : "Aashish",
   //     description : "SDE-2 @ Google"
@@ -66,15 +79,10 @@ app.listen(PORT, async () => {
 
   try {
 
-  const res = await Product.create({
-    title : "ritik",
-    description : "One of the best software developer of world",
-    price : 9999,
-    image : "Every girl dream of him",
-    categoryId : 57,
-  })
+    // const res = await Category.findByPk(64);
+    // console.log(res);
 
-  console.log("response from product :", res);
+  // console.log("response from product :", res);
     
   } catch (error) {
 
