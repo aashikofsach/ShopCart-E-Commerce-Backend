@@ -31,7 +31,7 @@ app.listen(PORT, async () => {
 
   try {
     console.log("inside try catch for db.sync")
-    await db.sync();
+    // await db.sync();
 
     console.log("here we get the how many models our db have :", db.models)
   } catch (error) {
@@ -39,6 +39,10 @@ app.listen(PORT, async () => {
   }
 
   console.log("db got connected successfully, yay !");
+
+  const res = await Category.findByPk(5);
+  console.log(res, "line 44");
+  console.log(await res.getProducts());
 
   // const res = await Product.create({
   //   id : 103,
