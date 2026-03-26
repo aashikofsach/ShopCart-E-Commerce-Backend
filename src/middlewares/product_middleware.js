@@ -24,7 +24,7 @@ function createProductvalidator(req, res, next) {
         ),
       );
   }
-  if (!req.body.category) {
+  if (!req.body.categoryId) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json(

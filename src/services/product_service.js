@@ -13,7 +13,13 @@ class ProductService {
 
     // products.push(newProduct);
 
-    const response = await this.respository.createProduct(product);
+    const response = await this.respository.createProduct(
+      product.title,
+      product.description,
+      product.price,
+      product.image,
+      product.categoryId,
+    );
 
     return response;
   }
@@ -33,7 +39,7 @@ class ProductService {
     // const requestedProduct = products.filter((product) => product.id == id)[0];
     // return requestedProduct;
 
-     const response = await this.respository.getProduct(id);
+    const response = await this.respository.getProduct(id);
     return response;
   }
 }
