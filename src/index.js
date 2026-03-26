@@ -43,6 +43,7 @@ app.listen(PORT, async () => {
   const res = await Category.findByPk(5);
   console.log(res, "line 44");
   console.log(await res.getProducts());
+  console.log(await res.countProducts());
 
   // const res = await Product.create({
   //   id : 103,
