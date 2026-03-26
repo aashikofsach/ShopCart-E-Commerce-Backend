@@ -8,4 +8,6 @@ module.exports = {
   DB_USER: process.env.DB_USER,
   DB_PASS: process.env.DB_PASS,
   DB_DATABASE: process.env.DB_DATABASE,
+  DB_FORCE : process.env.DB_FORCE,
+  DB_ALTER : process.env.DB_ALTER
 };

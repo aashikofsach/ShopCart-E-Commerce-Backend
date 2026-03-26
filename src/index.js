@@ -3,11 +3,11 @@ const bodyParser = require("body-parser");
 const responseTime = require("response-time");
 const mysql = require("mysql2");
 
-const { PORT } = require("./config/server_config");
+const { PORT, DB_FORCE, DB_ALTER } = require("./config/server_config");
 const db = require("./config/db_config");
 // const Category = require("./models/categories");
 // const Product = require("./models/products")
-const {Product , Category} =require("./models/assosiations")
+const { Product, Category } = require("./models/index");
 const { router: apiRoutes } = require("./routes/api_routes");
 const app = express();
 
@@ -30,20 +30,23 @@ app.listen(PORT, async () => {
   console.log(`server is running for shop cart app at ${PORT}`);
 
   try {
-    console.log("inside try catch for db.sync")
+    console.log("inside try catch for db.sync");
+    if (DB_FORCE === true) await db.sync({ force: true });
+    else if (DB_ALTER === true) await db.sync({ alter: true });
+    else await db.sync();
     // await db.sync();
 
-    console.log("here we get the how many models our db have :", db.models)
+    console.log("here we get the how many models our db have :", db.models);
   } catch (error) {
     console.log("There is some error in db sync", error);
   }
 
   console.log("db got connected successfully, yay !");
 
-  const res = await Category.findByPk(5);
-  console.log(res, "line 44");
-  console.log(await res.getProducts());
-  console.log(await res.countProducts());
+  // const res = await Category.findByPk(5);
+  // console.log(res, "line 44");
+  // console.log(await res.getProducts());
+  // console.log(await res.countProducts());
 
   // const res = await Product.create({
   //   id : 103,
@@ -53,10 +56,8 @@ app.listen(PORT, async () => {
   //   image : "some random image 3",
   //   categoryId : 1
 
-   
   // })
   // console.log(res, " here is the query run for product entry ")
-
 
   //  const res = await Category.create({
   //     name : "Aashish",
@@ -82,16 +83,4 @@ app.listen(PORT, async () => {
   //   })
   // })
 
-  try {
-
-    // const res = await Category.findByPk(64);
-    // console.log(res);
-
-  // console.log("response from product :", res);
-    
-  } catch (error) {
-
-    console.log("Error in adding data in product table", error)
-    
-  }
 });
