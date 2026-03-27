@@ -24,3 +24,4 @@ categoryRouter.delete("/:id", destroyCategory);
 categoryRouter.get("/:id/products", getProductForCategoryId);
 
 module.exports = { categoryRouter };
+ 

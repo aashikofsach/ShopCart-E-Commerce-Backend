@@ -65,8 +65,10 @@ class ProductService {
   async destroyProduct(id) {
     try {
       const response = await this.respository.destroyProduct(id);
+      if (!response) throw new NotFoundError("Product", "id", id);
       return response;
     } catch (error) {
+      if (error.name === "NotFoundError") throw error;
       console.log("Product service :", error);
 
       throw new internalServerError();

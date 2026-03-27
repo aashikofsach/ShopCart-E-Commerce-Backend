@@ -64,8 +64,10 @@ class CategoryService {
   async destroyCategory(id) {
     try {
       const response = await this.respository.destroyCategory(id);
+      if (!response) throw new NotFoundError("Category", "id", id);
       return response;
     } catch (error) {
+      if (error.name === "NotFoundError") throw error;
       console.log("category service :", error);
 
       throw new internalServerError();
