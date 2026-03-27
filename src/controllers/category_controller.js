@@ -6,11 +6,13 @@ const {
 } = require("../services/product_service");
 
 // const ProductService = require("../services/product_service");
-const CategoryService = require("../services/category_service");
+// const CategoryService = require("../services/category_service");
 // const FakeStoreRepository = require("../repositories/fake_store_repository");
-const CategoryRepository = require("../repositories/category_repository");
+// const CategoryRepository = require("../repositories/category_repository");
 const { errorResponse } = require("../utils/error_response");
-const ProductRepository = require("../repositories/product_repository");
+const { CategoryRepository, ProductRepository } = require("../repositories");
+const { CategoryService } = require("../services");
+// const ProductRepository = require("../repositories/product_repository");
 
 const categoryService = new CategoryService(new CategoryRepository() , new ProductRepository());
 

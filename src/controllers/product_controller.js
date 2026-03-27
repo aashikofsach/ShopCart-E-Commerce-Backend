@@ -5,10 +5,12 @@ const {
   getProductService,
 } = require("../services/product_service");
 
-const ProductService = require("../services/product_service");
+// const ProductService = require("../services/product_service");
 // const FakeStoreRepository = require("../repositories/fake_store_repository");
-const ProductRepository = require("../repositories/product_repository");
+// const ProductRepository = require("../repositories/product_repository");
 const { errorResponse } = require("../utils/error_response");
+const ProductService = require("../services/product_service");
+const { ProductRepository } = require("../repositories");
 
 // const productService = new ProductService(new FakeStoreRepository());
 
