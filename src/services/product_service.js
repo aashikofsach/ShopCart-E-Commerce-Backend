@@ -32,9 +32,10 @@ class ProductService {
     }
   }
 
-  async getProductsServices() {
+  async getProductsServices(query) {
     try {
-      const response = await this.respository.getProducts();
+      console.log("limit and offset ki value ", +query.limit , query.offset)
+      const response = await this.respository.getProducts(+query.limit , +query.offset);
       return response;
     } catch (error) {
       console.log("here we are in product_service", error);

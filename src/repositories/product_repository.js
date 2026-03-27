@@ -10,9 +10,9 @@ const { Product } = require("../models/index");
 // }
 
 class ProductRepository {
-  async getProducts() {
+  async getProducts(limit , offset) {
     try {
-      const response = await Product.findAll();
+      const response = await Product.findAll({limit , offset });
       //   console.log(response);
 
       return response;

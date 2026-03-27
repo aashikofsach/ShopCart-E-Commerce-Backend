@@ -41,8 +41,9 @@ async function getProducts(req, res) {
   try {
     // here we do db interaction
     // console.log(req.body)
+    console.log(req.query, "checking req object")
 
-    const response = await productService.getProductsServices();
+    const response = await productService.getProductsServices(req.query);
 
     return res.status(StatusCodes.OK).json({
       success: true,
