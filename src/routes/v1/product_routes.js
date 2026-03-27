@@ -1,6 +1,10 @@
 const express = require("express");
-const { createProduct , getProducts , getProduct, destroyProduct} = require("../../controllers/product_controller");
-const { pingController } = require("../../controllers/ping_controller");
+// const { createProduct , getProducts , getProduct, destroyProduct} = require("../../controllers/product_controller");
+
+const {ProductController} = require("../../controllers/")
+const { createProduct , getProducts , getProduct, destroyProduct} = ProductController ;
+
+// const { pingController } = require("../../controllers/ping_controller");
 const {
   createProductvalidator,
 } = require("./../../middlewares/product_middleware");

@@ -1,10 +1,10 @@
-function pingController(req, res) {
+function pingCheck(req, res) {
   return res.json({
     message: "PONG from V1 Router",
   });
 }
 
-function pingControllerV2(req, res) {
+function pingCheckV2(req, res) {
   return res.json({
     message: "PONG from v2 Router",
   });
@@ -18,6 +18,6 @@ function pingControllerV2(req, res) {
 // }
 
 module.exports = {
-  pingController,
-  pingControllerV2,
+  pingCheck,
+  pingCheckV2,
 };

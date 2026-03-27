@@ -1,15 +1,25 @@
 const express = require("express");
+// const {
+//   createCategory,
+//   getCategories,
+//   getCategory,
+//   destroyCategory,
+//   getProductForCategoryId,
+// } = require("../../controllers/category_controller");
+
+const { CategoryController } = require("../../controllers");
 const {
   createCategory,
   getCategories,
   getCategory,
   destroyCategory,
   getProductForCategoryId,
-} = require("../../controllers/category_controller");
-const { pingController } = require("../../controllers/ping_controller");
-const {
-  createProductvalidator,
-} = require("./../../middlewares/product_middleware");
+} = CategoryController;
+
+// const { pingController } = require("../../controllers/ping_controller");
+// const {
+//   createProductvalidator,
+// } = require("./../../middlewares/product_middleware");
 
 const {
   createCategoryValidator,
@@ -24,4 +34,3 @@ categoryRouter.delete("/:id", destroyCategory);
 categoryRouter.get("/:id/products", getProductForCategoryId);
 
 module.exports = { categoryRouter };
- 
