@@ -35,7 +35,7 @@ class ProductService {
 
   async getProductsServices(query) {
     try {
-      if(isNaN(query.limit) || isNaN(query.offset))
+      if(query.limit && (isNaN(query.limit)) || (query.offset && isNaN(query.offset)))
       {
         throw new badRequestError("limit , offset", true)
       }

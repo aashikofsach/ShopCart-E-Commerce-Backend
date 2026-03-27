@@ -12,7 +12,12 @@ const { Product } = require("../models/index");
 class ProductRepository {
   async getProducts(limit , offset) {
     try {
-      const response = await Product.findAll({limit , offset });
+        const filter = {};
+        if(limit)
+            filter.limit = limit
+        if(offset)
+            filter.offset = offset
+      const response = await Product.findAll(filter);
       //   console.log(response);
 
       return response;
