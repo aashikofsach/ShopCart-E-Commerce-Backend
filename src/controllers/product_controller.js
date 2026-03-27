@@ -8,14 +8,11 @@ const {
 const ProductService = require("../services/product_service");
 // const FakeStoreRepository = require("../repositories/fake_store_repository");
 const ProductRepository = require("../repositories/product_repository");
+const { errorResponse } = require("../utils/error_response");
 
 // const productService = new ProductService(new FakeStoreRepository());
 
 const productService = new ProductService(new ProductRepository());
-
-
-
-
 
 async function createProduct(req, res) {
   try {
@@ -32,6 +29,9 @@ async function createProduct(req, res) {
     });
   } catch (error) {
     console.log("Something went wrong", error);
+     return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
@@ -50,6 +50,9 @@ async function getProducts(req, res) {
     });
   } catch (error) {
     console.log("Something went wrong", error);
+     return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
@@ -70,13 +73,35 @@ async function getProduct(req, res) {
     });
   } catch (error) {
     console.log("Something went wrong", error);
+     return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
+async function destroyProduct(req, res) {
+  try {
+    const id = req.params.id;
+
+    const response = await productService.destroyProduct(id);
+
+    return res.status(StatusCodes.OK).json({
+      sucess: true,
+      error: null,
+      message: ReasonPhrases.OK,
+      data: response,
+    });
+  } catch (error) {
+    console.log("here we are in product controller file", error);
+    return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
+  }
+}
 
 module.exports = {
-
   createProduct,
   getProducts,
   getProduct,
+  destroyProduct
 };

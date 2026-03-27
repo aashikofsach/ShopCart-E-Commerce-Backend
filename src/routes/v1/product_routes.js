@@ -1,5 +1,5 @@
 const express = require("express");
-const { createProduct , getProducts , getProduct} = require("../../controllers/product_controller");
+const { createProduct , getProducts , getProduct, destroyProduct} = require("../../controllers/product_controller");
 const { pingController } = require("../../controllers/ping_controller");
 const {
   createProductvalidator,
@@ -11,6 +11,8 @@ const router = express.Router();
 router.get("/",getProducts)
 router.get("/:id", getProduct);
 router.post("/", createProductvalidator, createProduct);
+router.delete("/:id",destroyProduct)
+
 
 module.exports = { router };
 

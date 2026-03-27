@@ -1,3 +1,6 @@
+const { internalServerError } = require("../errors/internal_server_error");
+const { NotFoundError } = require("../errors/not_found_error");
+
 const products = [];
 
 class ProductService {
@@ -13,20 +16,30 @@ class ProductService {
 
     // products.push(newProduct);
 
-    const response = await this.respository.createProduct(
-      product.title,
-      product.description,
-      product.price,
-      product.image,
-      product.categoryId,
-    );
+    try {
+      const response = await this.respository.createProduct(
+        product.title,
+        product.description,
+        product.price,
+        product.image,
+        product.categoryId,
+      );
 
-    return response;
+      return response;
+    } catch (error) {
+      console.log("here we are in product_service", error);
+      throw new internalServerError();
+    }
   }
 
   async getProductsServices() {
-    const response = await this.respository.getProducts();
-    return response;
+    try {
+      const response = await this.respository.getProducts();
+      return response;
+    } catch (error) {
+      console.log("here we are in product_service", error);
+      throw new internalServerError();
+    }
   }
 
   async getProductService(id) {
@@ -38,9 +51,26 @@ class ProductService {
 
     // const requestedProduct = products.filter((product) => product.id == id)[0];
     // return requestedProduct;
+    try {
+      const response = await this.respository.getProduct(id);
+      if (!response) throw new NotFoundError("Product", "id", id);
+      return response;
+    } catch (error) {
+      if (error.name === "NotFoundError") throw error;
+      console.log("here we are product service", error);
+      throw new internalServerError();
+    }
+  }
 
-    const response = await this.respository.getProduct(id);
-    return response;
+  async destroyProduct(id) {
+    try {
+      const response = await this.respository.destroyProduct(id);
+      return response;
+    } catch (error) {
+      console.log("Product service :", error);
+
+      throw new internalServerError();
+    }
   }
 }
 
