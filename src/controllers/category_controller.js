@@ -10,8 +10,33 @@ const CategoryService = require("../services/category_service");
 // const FakeStoreRepository = require("../repositories/fake_store_repository");
 const CategoryRepository = require("../repositories/category_repository");
 const { errorResponse } = require("../utils/error_response");
+const ProductRepository = require("../repositories/product_repository");
 
-const categoryService = new CategoryService(new CategoryRepository());
+const categoryService = new CategoryService(new CategoryRepository() , new ProductRepository());
+
+async function getProductForCategoryId(req, res)
+{
+   try {
+    // here we do db interaction
+    // console.log(req.body)
+    const id = req.params.id;
+
+    const response = await categoryService.getProductByCategoryId(id);
+
+    return res.status(StatusCodes.OK).json({
+      sucess: true,
+      error: null,
+      message: "Successfully fetched products for the category",
+      data: response,
+    });
+  } catch (error) {
+    console.log("Something went wrong category controller", error);
+    return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
+  }
+
+}
 
 async function createCategory(req, res) {
   try {
@@ -104,4 +129,5 @@ module.exports = {
   getCategories,
   getCategory,
   destroyCategory,
+  getProductForCategoryId
 };

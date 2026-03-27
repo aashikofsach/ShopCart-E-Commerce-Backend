@@ -4,8 +4,23 @@ const { internalServerError } = require("../errors/internal_server_error");
 const { NotFoundError } = require("../errors/not_found_error");
 
 class CategoryService {
-  constructor(respository) {
+  constructor(respository, productRespository) {
     this.respository = respository;
+    this.productRespository = productRespository;
+  }
+
+  async getProductByCategoryId(categoryId) {
+    try {
+      // here we used the getCategory function already define in CategoryService
+      await this.getCategory(categoryId); // this one is to just catch the error if any that's it
+      const response =
+        await this.productRespository.getProductByCategoryId(categoryId);
+      return response;
+    } catch (error) {
+      if (error.name === "NotFoundError") throw error;
+      console.log("category Service ", error);
+      throw new internalServerError();
+    }
   }
 
   async createCategory(category) {
@@ -37,12 +52,10 @@ class CategoryService {
   async getCategory(categoryId) {
     try {
       const response = await this.respository.getCategory(categoryId);
-      if(!response)
-        throw new NotFoundError("Category", "id", categoryId);
+      if (!response) throw new NotFoundError("Category", "id", categoryId);
       return response;
     } catch (error) {
-        if(error.name==="NotFoundError")
-            throw error;
+      if (error.name === "NotFoundError") throw error;
       console.log("category service :", error);
       throw new internalServerError();
     }
