@@ -39,9 +39,13 @@ class ProductService {
       {
         throw new badRequestError("limit , offset", true)
       }
+      if(query.min_price && (isNaN(query.min_price)))
+        throw new badRequestError("min_price", true)
+      if(query.max_price && (isNaN(query.max_price)))
+        throw new badRequestError("max_price", true);
 
       console.log("limit and offset ki value ", +query.limit , query.offset)
-      const response = await this.respository.getProducts(+query.limit , +query.offset);
+      const response = await this.respository.getProducts(+query.limit , +query.offset , +query.min_price , +query.max_price);
       return response;
     } catch (error) {
       if(error.name === "badRequestError")

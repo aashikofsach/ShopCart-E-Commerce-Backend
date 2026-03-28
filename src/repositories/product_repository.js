@@ -1,4 +1,5 @@
 // const Category = require("../models/categories");
+const { NUMBER, Op } = require("sequelize");
 const { Product } = require("../models/index");
 // const axios = require("axios");
 
@@ -10,14 +11,24 @@ const { Product } = require("../models/index");
 // }
 
 class ProductRepository {
-  async getProducts(limit , offset) {
+  async getProducts(limit, offset, min_price, max_price) {
     try {
-        const filter = {};
-        if(limit)
-            filter.limit = limit
-        if(offset)
-            filter.offset = offset
-      const response = await Product.findAll(filter);
+      const filter = {};
+      if (limit) filter.limit = limit;
+      if (offset) filter.offset = offset;
+
+      const minValue = min_price ? min_price : Number.MIN_SAFE_INTEGER;
+      const maxValue = max_price ? max_price : Number.MAX_SAFE_INTEGER;
+      const response = await Product.findAll({
+        where: {
+          price: {
+            [Op.between]: [minValue, maxValue],
+          },
+        },
+        ...filter,
+      });
+
+    //   const response = await Product.findAll(filter);
       //   console.log(response);
 
       return response;
