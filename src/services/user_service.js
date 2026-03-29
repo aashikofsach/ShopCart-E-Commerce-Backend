@@ -1,5 +1,7 @@
 // const products = [];
 
+const { badRequestError } = require("../errors/bad_request_error");
+const { ConflictError } = require("../errors/conflict_error");
 const { internalServerError } = require("../errors/internal_server_error");
 const { NotFoundError } = require("../errors/not_found_error");
 
@@ -17,7 +19,20 @@ class UserService {
 
       return response;
     } catch (error) {
-      console.log("user service :", error);
+      console.log("user service error array :", error.errors[0].message);
+      console.log("user service :", error.name);
+      if (error.name === "SequelizeUniqueConstraintError")
+        throw new ConflictError("User", error.errors[0].message);
+      if (error.name === "SequelizeValidationError") {
+        let propertiesHavingValidationIssue = "";
+        let reason = [];
+        error.errors.forEach((err) => {
+          propertiesHavingValidationIssue += err.path + ", ";
+          reason.push(err.message);
+        });
+        throw new badRequestError(propertiesHavingValidationIssue ,true , reason) ;
+      }
+      //
       throw new internalServerError();
     }
   }
