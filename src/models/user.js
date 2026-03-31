@@ -19,6 +19,12 @@ const User = db.define("user", {
       isAlphanumeric: true,
     },
   },
+},{
+  hooks : {
+    beforeCreate : function (user) {
+      console.log("that jai maata di", user)
+    }
+  }
 });
 
 module.exports = User;
