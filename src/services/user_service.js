@@ -7,6 +7,7 @@ const { ConflictError } = require("../errors/conflict_error");
 const { internalServerError } = require("../errors/internal_server_error");
 const { NotFoundError } = require("../errors/not_found_error");
 const { unauthorizedError } = require("../errors/unauthorized_error");
+const {  generateJWT } = require("../utils/auth");
 
 class UserService {
   constructor(respository) {
@@ -79,7 +80,7 @@ class UserService {
     }
   }
 
-  async signUser(user) {
+  async signInUser(user) {
     try {
       const response = await this.respository.findUserByEmail(user.email);
       console.log(response[0]?.password , "herer we are getting the user from db by entering email")
@@ -87,7 +88,7 @@ class UserService {
       const isLogin = await bcrypt.compare(user.password, response[0].password);
       if (!isLogin) throw new unauthorizedError();
 
-      return response;
+      return generateJWT({email : response.email , id : response.id});
     } catch (error) {
       if (error.name === "NotFoundError" || error.name === "unauthorizedError") throw error;
       console.log("user service yaha :", error);

@@ -44,7 +44,7 @@ async function signInUser(req, res) {
       " req body when user try to login by entering credentials",
     );
 
-    const response = await userService.signUser(req.body);
+    const response = await userService.signInUser(req.body);
     return res.status(StatusCodes.OK).json({
       success: true,
       error: null,
