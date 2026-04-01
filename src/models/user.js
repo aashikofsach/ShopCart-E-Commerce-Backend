@@ -1,4 +1,8 @@
 const Sequalize = require("sequelize");
+const  bcrypt = require("bcryptjs");
+
+const {SALT_ROUND} = require("../config/server_config")
+// console.log(typeof(SALT_ROUND));
 
 const db = require("../config/db_config");
 
@@ -21,8 +25,15 @@ const User = db.define("user", {
   },
 },{
   hooks : {
-    beforeCreate : function (user) {
+    beforeCreate : async function (user) {
       console.log("that jai maata di", user)
+      const salt = await bcrypt.genSalt(+SALT_ROUND);
+      console.log("the value of salt generated", salt)
+       user.password = await bcrypt.hash(user.password , salt);
+
+
+      console.log("password after getting chnaged", user);
+
     }
   }
 });
