@@ -1,10 +1,7 @@
 const express = require("express");
 
-
 const { UserController } = require("../../controllers");
-const {
-  createUser,
-} = UserController;
+const { createUser, signInUser } = UserController;
 
 // const { pingController } = require("../../controllers/ping_controller");
 // const {
@@ -14,6 +11,6 @@ const {
 const userRouter = express.Router();
 
 userRouter.post("/", createUser);
-
+userRouter.post("/signin", signInUser);
 
 module.exports = { userRouter };

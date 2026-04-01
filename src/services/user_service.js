@@ -1,9 +1,12 @@
 // const products = [];
 
+const bcrypt = require("bcryptjs");
+
 const { badRequestError } = require("../errors/bad_request_error");
 const { ConflictError } = require("../errors/conflict_error");
 const { internalServerError } = require("../errors/internal_server_error");
 const { NotFoundError } = require("../errors/not_found_error");
+const { unauthorizedError } = require("../errors/unauthorized_error");
 
 class UserService {
   constructor(respository) {
@@ -30,7 +33,11 @@ class UserService {
           propertiesHavingValidationIssue += err.path + ", ";
           reason.push(err.message);
         });
-        throw new badRequestError(propertiesHavingValidationIssue ,true , reason) ;
+        throw new badRequestError(
+          propertiesHavingValidationIssue,
+          true,
+          reason,
+        );
       }
       //
       throw new internalServerError();
@@ -67,6 +74,23 @@ class UserService {
     } catch (error) {
       if (error.name === "NotFoundError") throw error;
       console.log("user service :", error);
+
+      throw new internalServerError();
+    }
+  }
+
+  async signUser(user) {
+    try {
+      const response = await this.respository.findUserByEmail(user.email);
+      console.log(response[0]?.password , "herer we are getting the user from db by entering email")
+      if (!response[0]) throw new NotFoundError("user", "email", user.email);
+      const isLogin = await bcrypt.compare(user.password, response[0].password);
+      if (!isLogin) throw new unauthorizedError();
+
+      return response;
+    } catch (error) {
+      if (error.name === "NotFoundError" || error.name === "unauthorizedError") throw error;
+      console.log("user service yaha :", error);
 
       throw new internalServerError();
     }

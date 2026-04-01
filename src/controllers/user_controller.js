@@ -10,12 +10,11 @@ const {
 // const FakeStoreRepository = require("../repositories/fake_store_repository");
 // const CategoryRepository = require("../repositories/category_repository");
 const { errorResponse } = require("../utils/error_response");
-const {  UserRepository } = require("../repositories");
+const { UserRepository } = require("../repositories");
 const { UserService } = require("../services");
 // const ProductRepository = require("../repositories/product_repository");
 
 const userService = new UserService(new UserRepository());
-
 
 async function createUser(req, res) {
   try {
@@ -32,14 +31,33 @@ async function createUser(req, res) {
     });
   } catch (error) {
     console.log("Something went wrong user controller", error);
-  return res
+    return res
       .status(error.statusCode)
       .json(errorResponse(error.ReasonPhrases, error));
   }
 }
 
+async function signInUser(req, res) {
+  try {
+    console.log(
+      req.body,
+      " req body when user try to login by entering credentials",
+    );
+
+    const response = await userService.signUser(req.body);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      error: null,
+      message: ReasonPhrases.OK + " user",
+      data: response,
+    });
+  } catch (error) {
+    console.log("something went wrong in user controller ", error);
+    return res.status(error.statusCode).json(errorResponse(error.reasonPhrase, error));
+  }
+}
 
 module.exports = {
   createUser,
-  
+  signInUser,
 };

@@ -30,7 +30,7 @@ const User = db.define("user", {
       const salt = await bcrypt.genSalt(+SALT_ROUND);
       console.log("the value of salt generated", salt)
        user.password = await bcrypt.hash(user.password , salt);
-
+ 
 
       console.log("password after getting chnaged", user);
 

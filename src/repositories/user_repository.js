@@ -59,6 +59,25 @@ class UserRepository {
       throw error;
     }
   }
+
+  async findUserByEmail(email)
+  {
+     try {
+      const response = await User.findAll({
+        where: {
+          email : email
+        },
+      });
+
+      console.log("here we are in repository ", response);
+
+      return response;
+    } catch (error) {
+      console.log(error, "Userrepository error");
+      throw error;
+    }
+
+  }
 }
 
 //  async getProduct()
