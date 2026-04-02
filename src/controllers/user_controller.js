@@ -12,6 +12,7 @@ const {
 const { errorResponse } = require("../utils/error_response");
 const { UserRepository } = require("../repositories");
 const { UserService } = require("../services");
+const { NODE_ENV } = require("../config/server_config");
 // const ProductRepository = require("../repositories/product_repository");
 
 const userService = new UserService(new UserRepository());
@@ -45,11 +46,12 @@ async function signInUser(req, res) {
     );
 
     const response = await userService.signInUser(req.body);
+    res.cookie("token", response , {httpOnly : true , maxAge : 7*24*60*60*1000 , secure : NODE_ENV==="production"})
     return res.status(StatusCodes.OK).json({
       success: true,
       error: null,
       message: ReasonPhrases.OK + " user",
-      data: response,
+      data: NODE_ENV==="production" ? true : response,
     });
   } catch (error) {
     console.log("something went wrong in user controller ", error);
