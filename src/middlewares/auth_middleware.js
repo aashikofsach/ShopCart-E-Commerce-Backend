@@ -13,7 +13,6 @@ let decodedToken ;
      decodedToken = verifyToken(req.cookies.token);
     console.log("here decoded value output ", decodedToken);
   } catch (error) {
-    console.log("mukhteshwar")
     return res
       .status(StatusCodes.UNAUTHORIZED)
       .json(errorResponse(error.message, error));
