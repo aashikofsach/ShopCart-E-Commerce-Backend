@@ -10,6 +10,13 @@ function pingCheckV2(req, res) {
   });
 }
 
+function pingAuthChecker(req, res)
+{
+  return res.json({
+    message : "OK"
+  })
+}
+
 // function productController(req, res)
 // {
 //     return res.json({
@@ -20,4 +27,5 @@ function pingCheckV2(req, res) {
 module.exports = {
   pingCheck,
   pingCheckV2,
+  pingAuthChecker
 };

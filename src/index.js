@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const responseTime = require("response-time");
 const mysql = require("mysql2");
+const cookieParser = require('cookie-parser');
 
 const { PORT, DB_FORCE, DB_ALTER } = require("./config/server_config");
 const db = require("./config/db_config");
@@ -18,7 +19,7 @@ const app = express();
 //   password: DB_PASS,
 //   database: DB_DATABASE,
 // });
-
+app.use(cookieParser())
 app.use(responseTime());
 app.use(bodyParser.json());
 app.use(bodyParser.text());
