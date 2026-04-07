@@ -3,10 +3,15 @@ const Product = require("./products");
 const User = require("./user");
 const Cart = require("./cart");
 
-Product.belongsTo(Category, { foreignKey: "categoryId" });
 Category.hasMany(Product, {
   foreignKey: "categoryId",
 });
+Product.belongsTo(Category, { foreignKey: "categoryId" });
+
+User.hasOne(Cart);
+Cart.belongsTo(User , {
+  foreignKey : "userId"
+})
 
 module.exports = {
   Product,
