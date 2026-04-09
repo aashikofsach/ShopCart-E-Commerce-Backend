@@ -8,7 +8,7 @@ const { PORT, DB_FORCE, DB_ALTER } = require("./config/server_config");
 const db = require("./config/db_config");
 // const Category = require("./models/categories");
 // const Product = require("./models/products")
-const { Product, Category } = require("./models/index");
+const { Product, Category, User } = require("./models/index");
 const { router: apiRoutes } = require("./routes/api_routes");
 const app = express();
 
@@ -34,7 +34,7 @@ app.listen(PORT, async () => {
     console.log("inside try catch for db.sync");
     if (DB_FORCE === true) await db.sync({ force: true });
     else if (DB_ALTER === true) await db.sync({ alter: true });
-    else await db.sync();
+    else await db.sync({});
     // await db.sync();
 
     console.log("here we get the how many models our db have :", db.models);
@@ -83,5 +83,12 @@ app.listen(PORT, async () => {
   //     console.log("Data from the table is ",result, "type of the results is ", typeof(result))
   //   })
   // })
+
+  // const user = await User.findByPk(26);
+
+  // console.log(user, "user corres to value 25");
+
+  // const cart = await user.getCart();
+  // console.log(cart)
 
 });

@@ -40,7 +40,7 @@ class CartRepository {
 
   async createCart(userId) {
    try {
-     const response = await Cart.create({id : userId})
+     const response = await Cart.create({userId})
     // Log the response for debugging
     console.log("API Response:", response);
     return response;
