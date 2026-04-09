@@ -1,5 +1,5 @@
 
-const Cart = require("../models/index");
+const {Cart} = require("../models/index");
 // const axios = require("axios");
 
 // async function getProduct() {
@@ -9,55 +9,55 @@ const Cart = require("../models/index");
 //   return response;
 // }
 
-class CategoryRepository {
-  async getCategories() {
+class CartRepository {
+  async getCart() {
   try {
-      const response = await Category.findAll();
+      const response = await Cart.findAll();
     //   console.log(response);
 
     return response;
     
   } catch (error) {
-    console.log(error, "categoryRepository error")
+    console.log(error, "CartRepository error")
     throw error;
     
   }
   }
 
-  async getCategory(id) {
+  async getCart(id) {
    try {
-     const response = await Category.findByPk(id)
+     const response = await Cart.findByPk(id)
       console.log(response, "what we get ");
     
 
     return response;
    } catch (error) {
-    console.log(error, "categoryRepository error");
+    console.log(error, "CartRepository error");
     throw error;
     
    }
   }
 
-  async createCategory(name , description) {
+  async createCart(userId) {
    try {
-     const response = await Category.create({name , description})
+     const response = await Cart.create({id : userId})
     // Log the response for debugging
     console.log("API Response:", response);
     return response;
     
    } catch (error) {
-    console.log(error, "categoryRepository error");
+    console.log(error, "CartRepository error");
     throw error;
     
    }
   }
 
-  async destroyCategory(categoryId)
+  async destroyCart(userId)
   {
     try {
-        const response = await Category.destroy({
+        const response = await Cart.destroy({
             where :{
-                id : categoryId
+                id : userId
             }
         })
 
@@ -73,4 +73,4 @@ class CategoryRepository {
 
 //  async getProduct()
 
-module.exports = CategoryRepository;
+module.exports = CartRepository;

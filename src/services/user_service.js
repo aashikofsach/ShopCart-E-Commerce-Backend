@@ -10,8 +10,9 @@ const { unauthorizedError } = require("../errors/unauthorized_error");
 const {  generateJWT } = require("../utils/auth");
 
 class UserService {
-  constructor(respository) {
+  constructor(respository , cartRepository) {
     this.respository = respository;
+    this.cartRepository = cartRepository ;
   }
 
   async createUser(user) {
@@ -21,10 +22,13 @@ class UserService {
         user.password,
       );
 
+      console.log("line numer 25 ", response.id)
+      await this.cartRepository.createCart(response.id)
+
       return response;
     } catch (error) {
-      console.log("user service error array :", error.errors[0].message);
-      console.log("user service :", error.name);
+      console.log("user service error array taaza :", error.errors[0].message);
+      console.log("user service taaza :", error.name);
       if (error.name === "SequelizeUniqueConstraintError")
         throw new ConflictError("User", error.errors[0].message);
       if (error.name === "SequelizeValidationError") {

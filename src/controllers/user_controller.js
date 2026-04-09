@@ -10,12 +10,12 @@ const {
 // const FakeStoreRepository = require("../repositories/fake_store_repository");
 // const CategoryRepository = require("../repositories/category_repository");
 const { errorResponse } = require("../utils/error_response");
-const { UserRepository } = require("../repositories");
+const { UserRepository, CartRepository } = require("../repositories");
 const { UserService } = require("../services");
 const { NODE_ENV } = require("../config/server_config");
 // const ProductRepository = require("../repositories/product_repository");
 
-const userService = new UserService(new UserRepository());
+const userService = new UserService(new UserRepository() , new CartRepository());
 
 async function createUser(req, res) {
   try {
