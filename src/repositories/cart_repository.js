@@ -1,5 +1,6 @@
-
-const {Cart} = require("../models/index");
+const { NotFoundError } = require("../errors/not_found_error");
+const { Cart, CartProducts } = require("../models/index");
+const { Op } = require("sequelize");
 // const axios = require("axios");
 
 // async function getProduct() {
@@ -11,65 +12,116 @@ const {Cart} = require("../models/index");
 
 class CartRepository {
   async getCart() {
-  try {
+    try {
       const response = await Cart.findAll();
-    //   console.log(response);
+      //   console.log(response);
 
-    return response;
-    
-  } catch (error) {
-    console.log(error, "CartRepository error")
-    throw error;
-    
-  }
+      return response;
+    } catch (error) {
+      console.log(error, "CartRepository error");
+      throw error;
+    }
   }
 
   async getCart(id) {
-   try {
-     const response = await Cart.findByPk(id)
+    try {
+      const response = await Cart.findByPk(id);
       console.log(response, "what we get ");
-    
 
-    return response;
-   } catch (error) {
-    console.log(error, "CartRepository error");
-    throw error;
-    
-   }
+      return response;
+    } catch (error) {
+      console.log(error, "CartRepository error");
+      throw error;
+    }
   }
 
   async createCart(userId) {
-   try {
-     const response = await Cart.create({userId})
-    // Log the response for debugging
-    console.log("API Response:", response);
-    return response;
-    
-   } catch (error) {
-    console.log(error, "CartRepository error");
-    throw error;
-    
-   }
+    try {
+      const response = await Cart.create({ userId });
+      // Log the response for debugging
+      console.log("API Response:", response);
+      return response;
+    } catch (error) {
+      console.log(error, "CartRepository error");
+      throw error;
+    }
   }
 
-  async destroyCart(userId)
-  {
+  async destroyCart(userId) {
     try {
-        const response = await Cart.destroy({
-            where :{
-                id : userId
-            }
-        })
+      const response = await Cart.destroy({
+        where: {
+          id: userId,
+        },
+      });
 
-        return response ;
-        
+      return response;
     } catch (error) {
-        console.log("There is something error as", error)
-        throw error ;
+      console.log("There is something error as", error);
+      throw error;
+    }
+  }
+
+  async updateCart(cartId, productId, shouldAddProduct = true) {
+    try {
+      const result = await CartProducts.findOne({
+        where: {
+          [Op.and]: [
+            { cartId: cartId },
+            {
+              productId: productId,
+            },
+          ],
+        },
+      });
+
+      if (shouldAddProduct) {
+        // if we want to add the product
+        if (!result) {
+          // it means product is not present in the cart
+          await CartProducts.create({
+            cartId,
+            productId,
+          });
+        } else {
+          // product was in the cart, and we have to increment the items
+          await result.increment({ quantity: 1 });
+        }
+      } else {
+        // it means we wanna remove the product from cart
+        if (!result) {
+          throw new NotFoundError("cartProducts", "Product", productId);
+        }
+        if (result.quantity === 1) {
+          await CartProducts.destroy({
+            where: {
+              [Op.and]: [
+                { cartId: cartId },
+                {
+                  productId: productId,
+                },
+              ],
+            },
+          });
+        } else {
+          await result.increment({ quantity: -1 });
+        }
+      }
+      const response = await CartProducts.findAll({
+        where: {
+          cartId: cartId,
+        },
+      });
+      return {
+        cartId : cartId,
+        products : response
+      }
+    } catch (error) {
+      console.log("cart_repo update cart func", error);
+      throw error;
     }
   }
 }
-
 
 //  async getProduct()
 
