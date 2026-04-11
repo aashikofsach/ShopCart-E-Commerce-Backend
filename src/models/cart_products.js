@@ -19,6 +19,11 @@ const CartProducts = db.define("cartproducts", {
       key: "id",
     },
   },
+  quantity : {
+    type : Sequalize.INTEGER,
+    allowNull : false,
+    defaultValue : 1
+  }
 });
 
 

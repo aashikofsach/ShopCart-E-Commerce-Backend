@@ -14,6 +14,7 @@ Cart.belongsTo(User , {
   foreignKey : "userId"
 })
 
+// many to Many 
 Cart.belongsToMany(Product, {through : CartProducts});
 Product.belongsToMany(Cart, {through : CartProducts})
 

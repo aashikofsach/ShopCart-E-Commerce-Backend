@@ -34,7 +34,7 @@ app.listen(PORT, async () => {
     console.log("inside try catch for db.sync");
     if (DB_FORCE === true) await db.sync({ force: true });
     else if (DB_ALTER === true) await db.sync({ alter: true });
-    else await db.sync({});
+    else await db.sync();
     // await db.sync();
 
     console.log("here we get the how many models our db have :", db.models);
