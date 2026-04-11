@@ -14,14 +14,14 @@ const { CartRepository } = require("../repositories");
 const { CartService } = require("../services");
 // const ProductRepository = require("../repositories/product_repository");
 
-const categoryService = new CartService(
+const cartService = new CartService(
   new CartRepository()
 );
 
 async function updateCart(req, res) {
   try {
 
-    const response = await CartService.updateCart(req.params.id , req.body.productId, shouldAddProduct);
+    const response = await cartService.updateCart(req.params.id , req.body.productId, req.body.shouldAddProduct);
 
     return res.status(StatusCodes.OK).json({
       sucess: true,
