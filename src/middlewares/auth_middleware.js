@@ -11,7 +11,7 @@ const isLoggedIn = (req, res, next) => {
 let decodedToken ;
   try {
      decodedToken = verifyToken(req.cookies.token);
-    console.log("here decoded value output ", decodedToken);
+    console.log("here decoded value output ", decodedToken, decodedToken.email);
   } catch (error) {
     return res
       .status(StatusCodes.UNAUTHORIZED)

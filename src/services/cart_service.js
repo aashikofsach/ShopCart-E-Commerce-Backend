@@ -19,7 +19,9 @@ class CartService {
         }
         if(cart.userId !== userId)
         {
-            throw new unauthorizedError();
+          console.log("yah tak chal raha hai baba")
+          console.log("baba ke neeche",cart.userId,userId)
+            throw new unauthorizedError("you are not authorised to do the current operation");
 
         }
       const response = await this.respository.updateCart(

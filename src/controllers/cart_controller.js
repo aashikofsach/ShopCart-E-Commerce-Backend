@@ -22,6 +22,8 @@ async function updateCart(req, res) {
   try {
     // below is handling so that we cna send data from url x encoded and from json body  
     const shouldAddProduct = (req.body.shouldAddProduct === true || req.body.shouldAddProduct==="true") ? true : false
+    // below mein doosra argument cartId hai 
+    console.log("hurray", req.user.id)
     const response = await cartService.updateCart(req.user.id,req.params.id , req.body.productId, shouldAddProduct);
 
     return res.status(StatusCodes.OK).json({

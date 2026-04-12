@@ -69,7 +69,7 @@ class UserRepository {
         },
       });
 
-      console.log("here we are in repository ", response);
+      console.log("here we are in repository ", response[0]);
 
       return response;
     } catch (error) {
