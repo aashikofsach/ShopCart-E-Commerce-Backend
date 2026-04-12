@@ -20,8 +20,9 @@ const cartService = new CartService(
 
 async function updateCart(req, res) {
   try {
-
-    const response = await cartService.updateCart(req.params.id , req.body.productId, req.body.shouldAddProduct);
+    // below is handling so that we cna send data from url x encoded and from json body  
+    const shouldAddProduct = (req.body.shouldAddProduct === true || req.body.shouldAddProduct==="true") ? true : false
+    const response = await cartService.updateCart(req.user.id,req.params.id , req.body.productId, shouldAddProduct);
 
     return res.status(StatusCodes.OK).json({
       sucess: true,

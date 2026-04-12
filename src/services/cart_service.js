@@ -2,14 +2,26 @@
 
 const { internalServerError } = require("../errors/internal_server_error");
 const { NotFoundError } = require("../errors/not_found_error");
+const {unauthorizedError} = require("../errors/unauthorized_error");
 
 class CartService {
   constructor(respository) {
     this.respository = respository;
   }
 
-  async updateCart(cartId, productId, shouldAddProduct = true) {
+  async updateCart(userId,cartId, productId, shouldAddProduct = true) {
     try {
+        //is below extra layer authorization checking ki kya jarorat thi ?
+        const cart = await this.respository.getCart(cartId);
+        if(!cart)
+        {
+            throw new NotFoundError("cart", "id", cartId);
+        }
+        if(cart.userId !== userId)
+        {
+            throw new unauthorizedError();
+
+        }
       const response = await this.respository.updateCart(
         cartId,
         productId,
@@ -17,7 +29,7 @@ class CartService {
       );
       return response;
     } catch (error) {
-      if (error.name === "NotFoundError") throw error;
+      if (error.name === "NotFoundError" || error.name === "unauthorizedError") throw error;
       console.log("category Service ", error);
       throw new internalServerError();
     }
