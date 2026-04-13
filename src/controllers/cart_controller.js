@@ -40,6 +40,30 @@ async function updateCart(req, res) {
   }
 }
 
+async function getCartProducts(req, res)
+{
+   try {
+    // below is handling so that we cna send data from url x encoded and from json body  
+    // below mein doosra argument cartId hai 
+    console.log("hurray", req.user.id)
+    const response = await cartService.getCartProducts(req.params.id , req.user.id);
+
+    return res.status(StatusCodes.OK).json({
+      sucess: true,
+      error: null,
+      message: "Updated Cart Successfully",
+      data: response,
+    });
+  } catch (error) {
+    console.log("Something went wrong Cart Controller", error);
+    return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
+  }
+
+}
+
 module.exports = {
-  updateCart
+  updateCart,
+  getCartProducts
 };

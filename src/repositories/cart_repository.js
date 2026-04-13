@@ -23,6 +23,22 @@ class CartRepository {
     }
   }
 
+  async getCartProducts(id)
+  {
+    try {
+      const response = await CartProducts.findAll({
+        where : {
+          cartId : id
+        }
+      })
+
+      return response ;
+      
+    } catch (error) {
+      
+    }
+  }
+
   async getCart(id) {
     try {
       const response = await Cart.findByPk(id);
