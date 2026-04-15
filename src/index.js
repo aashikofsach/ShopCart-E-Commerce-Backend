@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const responseTime = require("response-time");
 const mysql = require("mysql2");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
 const { PORT, DB_FORCE, DB_ALTER } = require("./config/server_config");
 const db = require("./config/db_config");
@@ -19,13 +19,26 @@ const app = express();
 //   password: DB_PASS,
 //   database: DB_DATABASE,
 // });
-app.use(cookieParser())
+// app.use((req, res, next) => {
+//   console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!the first middleware')
+//   next()
+// })
+// app.get("/", (req, res) => {
+//   console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+//   return res.json({
+//     message: "test done",
+//   });
+// });
+app.use(cookieParser());
 app.use(responseTime());
 app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 app.use("/api", apiRoutes);
+
+
 
 app.listen(PORT, async () => {
   console.log(`server is running for shop cart app at ${PORT}`);
@@ -90,5 +103,4 @@ app.listen(PORT, async () => {
 
   // const cart = await user.getCart();
   // console.log(cart)
-
 });

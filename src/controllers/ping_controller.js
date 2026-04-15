@@ -1,4 +1,5 @@
 function pingCheck(req, res) {
+  console.log("Inside the ping check")
   return res.json({
     message: "PONG from V1 Router",
   });
