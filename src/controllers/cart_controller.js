@@ -63,7 +63,31 @@ async function getCartProducts(req, res)
 
 }
 
+
+async function clearCart(req, res)
+{
+   try {
+    //params mein card id hai and user mein user ki id 
+    console.log("hurray", req.user.id)
+    const response = await cartService.clearCart(req.params.id , req.user.id);
+
+    return res.status(StatusCodes.OK).json({
+      sucess: true,
+      error: null,
+      message: "Updated Cart Successfully",
+      data: response,
+    });
+  } catch (error) {
+    console.log("Something went wrong Cart Controller", error);
+    return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
+  }
+
+}
+
 module.exports = {
   updateCart,
-  getCartProducts
+  getCartProducts,
+  clearCart
 };

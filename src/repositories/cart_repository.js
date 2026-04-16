@@ -78,6 +78,24 @@ class CartRepository {
     }
   }
 
+
+  async clearCart(id)
+  {
+     try {
+      const response = await CartProducts.destroy({
+        where: {
+          cartId: id,
+        },
+      });
+
+      return response;
+    } catch (error) {
+      console.log("There is something error as", error);
+      throw error;
+    }
+
+  }
+
   async updateCart(cartId, productId, shouldAddProduct = true) {
     try {
       const result = await CartProducts.findOne({
@@ -137,6 +155,7 @@ class CartRepository {
       throw error;
     }
   }
+
 }
 
 //  async getProduct()

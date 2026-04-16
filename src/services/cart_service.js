@@ -60,6 +60,32 @@ class CartService {
       throw new internalServerError();
     }
   }
+
+  async clearCart(cartId , userId)
+  {
+     try {
+      const cart = await this.respository.getCart(cartId);
+      if (!cart) {
+        throw new NotFoundError("Cart", "id", cartId);
+      }
+       if (cart.userId !== userId) {
+        console.log("yah tak chal raha hai baba");
+        console.log("baba ke neeche", cart.userId, userId);
+        throw new unauthorizedError(
+          "you are not authorised to do the current operation",
+        );
+      }
+
+      const response = await this.respository.clearCart(cartId);
+      return response;
+    } catch (error) {
+      if(error.name ==="NotFoundError" || error.name === "unauthorizedError")
+        throw error
+      console.log("Cart Service ", error);
+      throw new internalServerError();
+    }
+
+  }
 }
 
 module.exports = CartService;
