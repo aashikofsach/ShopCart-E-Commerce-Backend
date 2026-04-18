@@ -23,6 +23,24 @@ class CartRepository {
     }
   }
 
+  async getCartByUser(userId)
+  {
+      try {
+      const response = await Cart.findOne({
+        where : {
+          userId : userId
+        }
+      });
+      console.log(response, "what we get ");
+
+      return response;
+    } catch (error) {
+      console.log(error, "CartRepository error");
+      throw error;
+    }
+
+  }
+
   async getCartProducts(id)
   {
     try {

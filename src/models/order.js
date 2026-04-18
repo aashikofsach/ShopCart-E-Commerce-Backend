@@ -8,15 +8,7 @@ const Order = db.define("order", {
       values: ["pending", "cancelled", "Successfull"],
     }),
     allowNull: false,
-  },
-  UserId: {
-    type: Sequalize.INTEGER,
-    allowNull: false,
-    references: {
-      model: "users",
-      key: "id",
-    },
-  },
+  }
 });
 
 module.exports = Order;
