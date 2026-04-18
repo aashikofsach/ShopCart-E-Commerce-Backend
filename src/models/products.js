@@ -1,7 +1,6 @@
 const Sequalize = require("sequelize");
 
 const db = require("../config/db_config");
-const Category = require("./categories");
 
 const Product = db.define("product", {
   title: {

@@ -2,12 +2,12 @@ const Sequalize = require("sequelize");
 
 const db = require("../config/db_config");
 
-const CartProducts = db.define("cartproducts", {
-  cartId: {
+const OrderProducts = db.define("orderproducts", {
+  orderId: {
     type: Sequalize.INTEGER,
     allowNull: false,
     references: {
-      model: "Carts",
+      model: "Orders",
       key: "id",
     },
   },
@@ -19,12 +19,11 @@ const CartProducts = db.define("cartproducts", {
       key: "id",
     },
   },
-  quantity : {
-    type : Sequalize.INTEGER,
-    allowNull : false,
-    defaultValue : 1
-  }
+  quantity: {
+    type: Sequalize.INTEGER,
+    allowNull: false,
+    defaultValue: 1,
+  },
 });
 
-
-module.exports = CartProducts ;
+module.exports = OrderProducts;
