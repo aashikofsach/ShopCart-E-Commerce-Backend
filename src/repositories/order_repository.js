@@ -1,5 +1,4 @@
-const { OrderProducts } = require("../models");
-const Order = require("../models/order");
+const { OrderProducts, Order, Product } = require("../models");
 // const axios = require("axios");
 
 // async function getProduct() {
@@ -67,8 +66,25 @@ class OrderRepository {
 
       return response;
     } catch (error) {
-        console.log("order repository", error);
-        throw error ;
+      console.log("order repository", error);
+      throw error;
+    }
+  }
+
+  async fetchOrderDetails(orderId) {
+    try {
+      // mapping of tables which actually works here behind the scene as:
+      // order table se orderId --> orderId se orderproducts table mein se productsId
+      // from those productIds we get the name of products_name from product
+
+      const response = await Order.findOne({
+        where: {
+          id: orderId,
+        },
+      });
+    } catch (error) {
+      console.log(error, "error in order_repo");
+      throw error;
     }
   }
 }
