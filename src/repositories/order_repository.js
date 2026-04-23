@@ -81,7 +81,11 @@ class OrderRepository {
         where: {
           id: orderId,
         },
+        include : {
+          model : Product
+        }
       });
+      return response ;
     } catch (error) {
       console.log(error, "error in order_repo");
       throw error;

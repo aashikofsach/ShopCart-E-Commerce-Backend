@@ -41,6 +41,37 @@ async function createOrder(req, res) {
   }
 }
 
+
+
+async function getOrder(req, res) {
+  try {
+  
+    const response = await orderService.fetchOrderDetails(
+      req.user.id, req.params.id
+     
+    );
+
+    return res.status(StatusCodes.OK).json({
+      sucess: true,
+      error: null,
+      message: "Fetched Order Successfully",
+      data: response,
+    });
+  } catch (error) {
+    console.log("Something went wrong Order Controller", error);
+    return res
+      .status(error.statusCode)
+      .json(errorResponse(error.ReasonPhrases, error));
+  }
+}
+
+
+
+
+
+
+
 module.exports = {
   createOrder,
+  getOrder
 };

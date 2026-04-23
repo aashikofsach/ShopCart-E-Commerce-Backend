@@ -54,6 +54,19 @@ class CategoryService {
       throw new internalServerError();
     }
   }
+
+  async fetchOrderDetails(userId , orderId ){
+
+    try {
+      const response = await this.respository.fetchOrderDetails(orderId) ;
+      return response ;
+      
+    } catch (error) {
+        console.log("order service :", error);
+      throw new internalServerError();
+      
+    }
+  }
 }
 
 module.exports = CategoryService;
