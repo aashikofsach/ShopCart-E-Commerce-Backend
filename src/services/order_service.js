@@ -2,6 +2,7 @@
 
 const { internalServerError } = require("../errors/internal_server_error");
 const { NotFoundError } = require("../errors/not_found_error");
+const { unauthorizedError } = require("../errors/unauthorized_error");
 
 class CategoryService {
   constructor(respository, cartRepository) {
@@ -41,7 +42,7 @@ class CategoryService {
       order.status = "Successfull";
       await order.save();
 
-      await this.cartRepository.clearCart(cart.id)
+      await this.cartRepository.clearCart(cart.id);
 
       return {
         orderId: order.id,
@@ -55,16 +56,43 @@ class CategoryService {
     }
   }
 
-  async fetchOrderDetails(userId , orderId ){
-
+  async fetchOrderDetails(userId, orderId) {
     try {
-      const response = await this.respository.fetchOrderDetails(orderId) ;
-      return response ;
-      
+      const orderObject = await this.respository.getOrder(orderId);
+      if (!orderObject) {
+        throw new NotFoundError("Order", "Order Id", orderId);
+      }
+      if (orderObject.userId !== userId) {
+        throw new unauthorizedError(
+          "You are not authorized to do this operation",
+        );
+      }
+      const response = await this.respository.fetchOrderDetails(orderId);
+      let totalOrderValue = 0;
+      const order = {
+        id: response.id,
+        status: response.status,
+        createdAt: response.createdAt,
+        updatedAt: response.updatedAt,
+      };
+      order.products = response.products.map((product) => {
+        totalOrderValue += product.price * product.orderproducts.quantity;
+        return {
+          title: product.title,
+          id: product.id,
+          price: product.price,
+          image: product.image,
+          quantity: product.orderproducts.quantity,
+        };
+      });
+      order.totalOrderValue = totalOrderValue;
+
+      return order;
     } catch (error) {
-        console.log("order service :", error);
+      if (error.name === "NotFoundError" || error.name === "unauthorizedError")
+        throw error;
+      console.log("order service :", error);
       throw new internalServerError();
-      
     }
   }
 }
