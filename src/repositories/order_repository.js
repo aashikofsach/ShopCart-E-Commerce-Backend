@@ -82,8 +82,15 @@ class OrderRepository {
           id: orderId,
         },
         include : {
-          model : Product
-        }
+          model : Product,
+          attributes : ["id", "title", "price", "image"],
+          through : {
+            model : OrderProducts,
+            attributes : ["quantity"]
+          }
+
+        },
+        attributes : ["id", "status","createdAt", "updatedAt"]
       });
       return response ;
     } catch (error) {
