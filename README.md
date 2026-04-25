@@ -35,3 +35,12 @@ PORT : YOUR_PORT_NUMBER
 npm start 
 
 ```
+
+6. service deployed on Render and DB service using from freesqldatabase.com
+
+```
+https://dashboard.render.com/
+
+https://www.freesqldatabase.com/account/
+
+```
