@@ -4,7 +4,7 @@ const { internalServerError } = require("../errors/internal_server_error");
 const { NotFoundError } = require("../errors/not_found_error");
 const { unauthorizedError } = require("../errors/unauthorized_error");
 
-class CategoryService {
+class OrderService {
   constructor(respository, cartRepository) {
     this.respository = respository;
     this.cartRepository = cartRepository;
@@ -97,4 +97,4 @@ class CategoryService {
   }
 }
 
-module.exports = CategoryService;
+module.exports = OrderService;
