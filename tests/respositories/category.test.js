@@ -44,6 +44,8 @@ describe("tests for category repository, category creation", () => {
     );
     
    } catch (error) {
+    console.log(error)
+    console.log(mockError);
     expect(error).toBe(mockError)
     
    }
