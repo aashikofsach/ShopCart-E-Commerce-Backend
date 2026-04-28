@@ -9,6 +9,11 @@ const User = require("../models/user");
 // }
 
 class UserRepository {
+
+  UserRepository()
+  {
+    console.log("applying this log to check, when we do testing this log comes or not, logically it should not come ")
+  }
   async getUsers() {
     try {
       const response = await User.findAll();

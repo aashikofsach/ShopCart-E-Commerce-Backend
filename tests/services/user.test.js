@@ -22,12 +22,12 @@ describe("Test for userService Sign in method", () => {
     });
   });
 
-  test("should return valid jwt toke", ()=>{
+  test("should return valid jwt toke", async()=>{
     //prepare
     const userService = new UserService(new UserRepository() , new CartRepository());
 
 
     //Act
-    const response = userService.signInUser({email : "A@b.com", password :"12345"})
+    const response = await userService.signInUser({email : "A@b.com", password :"12345"})
   })
 });
