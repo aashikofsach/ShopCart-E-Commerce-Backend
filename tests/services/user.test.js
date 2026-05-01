@@ -8,7 +8,7 @@ jest.mock("../../src/repositories/cart_repository")
 const mockUser = {
   id: 1,
   email: "A@b.com",
-  password: "ffbskfj",
+  password: "12345",
   createdAt: "2025-12-12",
   updatedAt: "2025-12-12",
 };
@@ -18,7 +18,7 @@ describe("Test for userService Sign in method", () => {
     UserRepository.mockImplementation(() => {
       return {
         findUserByEmail: (email) => {
-          return mockUser;
+          return [mockUser];
         },
       };
     });
@@ -28,8 +28,9 @@ describe("Test for userService Sign in method", () => {
     //prepare
     const userService = new UserService(new UserRepository() , new CartRepository()); 
     // in signInUser method of userService, firstly we check if the user is present and then we compare the password 
-    //with bcrypt, and for that we have to make the mock of bcrypt
-    jest.spyOn("bcrypt", compare).mockImplementation(()=> true)
+    //with bcrypt, and for that we have to make the mock of bcrypt( as it present in just next file call so we have to make mock of it )
+    jest.spyOn(bcrypt, "compare").mockImplementation(()=> true);
+
 
 
 
