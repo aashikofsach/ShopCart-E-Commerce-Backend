@@ -88,7 +88,7 @@ class UserService {
     try {
       const response = await this.respository.findUserByEmail(user.email);
       console.log(response, "jai baaba ki")
-      console.log(response[0]?.password, "here we are getting the user from db by entering email");
+      // console.log(response[0]?.password, "here we are getting the user from db by entering email");
       if (!response) throw new NotFoundError("user", "email", user.email);
       const isLogin = await bcrypt.compare(user.password, response[0]?.password);
       if (!isLogin) throw new unauthorizedError();
